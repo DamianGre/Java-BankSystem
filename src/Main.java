@@ -296,11 +296,9 @@ public class Main {
                                     }
                                     if (accNum != -1)
                                     {
-                                        bank.get(accNum).creditpayment();
+                                        bank.get(accNum).userIsLogged = false;
                                     }
                                     loginMenu = false;
-
-                                    bank.get(accNum).userIsLogged = false;
                                 }
                                 break;
                             }
