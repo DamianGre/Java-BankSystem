@@ -27,8 +27,7 @@ public class Main {
 
 
     do {
-        System.out.println("Press 1. To create account. \nPress 2. To log in as user. \nPress 3. To log in as admin. \nPress 4. To quit.\n");
-        System.out.println("Select function: ");
+        MessagePrinter.BaseMenu();
         int menuChoose = scannerM1.nextInt();
 
         switch (menuChoose)
@@ -78,7 +77,7 @@ public class Main {
 
                 Boolean accountChecker = true;
 
-                for (int ix = 0; ix < bank.size(); ix++)
+                for (Integer ix = 0; ix < bank.size(); ix++)
                 {
                     if ((bank.get(ix).setName.equals(nameCheck) ) && (bank.get(ix).setPassword.equals(passwordCheck) ) && (bank.get(ix).accountBlock == false))
                     {
@@ -97,9 +96,7 @@ public class Main {
                                     System.out.println("\nName: " + bank.get(ix).setName + "\nBalance: \n" + bank.get(ix).balance);
                                 }
                             }
-
-                            System.out.println("Press 1. To deposit: \nPress 2. To withdraw: \nPress 3. To check balance.\n" +
-                                    "Press 4. To check transaction history.\nPress 5. To make transfer to other user \nPress 6. To take credit.\nPress 7. To repay credit\nPress 8. To log out and quit to main menu");
+                            MessagePrinter.UserMenu();
                             int loginMenuChoose = scannerM6.nextInt();
 
                             System.out.println("\n");
@@ -108,199 +105,68 @@ public class Main {
                             {
                                 case 1:
                                 {
+                                    int accNumBasic = 0;
                                     int accNum = -1;
-                                    for (ix = 0; ix < bank.size(); ix++)
-                                    {
-                                        if (bank.get(ix).setName.equals(nameCheck))
-                                        {
-                                            accNum = ix;
-                                        }
-                                    }
-                                    if (accNum != -1)
-                                    {
-                                        bank.get(accNum).deposit();
-                                    }
-                                    else
-                                    {
-                                        System.out.println("Account not found!");
-                                    }
+                                    bank.get(accNumBasic).ListShuffelPlusDeposit(bank, nameCheck, accNum);
                                 }
                                 break;
 
                                 case 2:
                                 {
+                                    int accNumBasic = 0;
                                     int accNum = -1;
-                                    for (ix = 0; ix < bank.size(); ix++)
-                                    {
-                                        if (bank.get(ix).setName.equals(nameCheck))
-                                        {
-                                            accNum = ix;
-                                        }
-                                    }
-                                    if (accNum != -1)
-                                    {
-                                        bank.get(accNum).withdraw();
-                                    }
-                                    else
-                                    {
-                                        System.out.println("Insufficient funds!");
-                                    }
+                                    bank.get(accNumBasic).ListShuffelPlusWithdraw(bank, nameCheck, accNum);
                                 }
                                 break;
 
                                 case 3:
                                 {
+                                    int accNumBasic = 0;
                                     int accNum = -1;
-                                    for (ix = 0; ix < bank.size(); ix++)
-                                    {
-                                        if (bank.get(ix).setName.equals(nameCheck))
-                                        {
-                                            accNum = ix;
-                                        }
-                                    }
-                                    if (accNum != -1)
-                                    {
-                                        System.out.println("Balance: " + bank.get(accNum).balance);
-                                    }
-
+                                    bank.get(accNumBasic).ListShuffelPlusBalanceGet(bank, nameCheck, accNum);
                                 }
                                 break;
 
                                 case 4:
                                 {
+                                    int accNumBasic = 0;
                                     int accNum = -1;
-                                    for (ix = 0; ix < bank.size(); ix++)
-                                    {
-                                        if (bank.get(ix).setName.equals(nameCheck))
-                                        {
-                                            accNum = ix;
-                                        }
-                                    }
-                                    if (accNum != -1)
-                                    {
-                                        bank.get(accNum).history();
-                                    }
+                                    bank.get(accNumBasic).ListShuffelPlusHistory(bank, nameCheck, accNum);
                                 }
                                 break;
 
                                 case 5:
                                 {
+                                    int accNumBasic = 0;
                                     int accNum = -1;
-                                    for (ix = 0; ix < bank.size(); ix++)
-                                    {
-                                        if (bank.get(ix).setName.equals(nameCheck))
-                                        {
-                                            accNum = ix;
-                                        }
-                                    }
-                                    if (accNum != -1)
-                                    {
-                                        LocalDateTime dateTime = LocalDateTime.now();
-
-                                        Boolean userTransferNameCheck = false;
-
-                                        do
-                                        {
-                                            bank.get(accNum).setRecipientName();
-
-                                            for (int ixUser = 0; ixUser < bank.size(); ixUser++)
-                                            {
-                                                if (bank.get(ixUser).setName.equals(bank.get(accNum).userNameToTransfer))
-                                                {
-                                                    userTransferNameCheck = true;
-                                                }
-                                            }
-                                            if(userTransferNameCheck == false)
-                                            {
-                                                System.out.println("Account with that name don't exist! Enter other account name. Enter 'quit' to quit.");
-                                            }
-                                            else if(bank.get(accNum).setName.equals(bank.get(accNum).userNameToTransfer))
-                                            {
-                                                System.out.println("You can't transfer money to Yourself! Enter other account name.");
-                                                userTransferNameCheck = false;
-                                            }
-                                        } while (userTransferNameCheck == false);
-
-                                        bank.get(accNum).transferToOtherUser();
-
-                                        if (bank.get(accNum).transferAction == true)
-                                        {
-                                            int accUserNum = -1;
-                                            for (int ixUser = 0; ixUser < bank.size(); ixUser++)
-                                            {
-                                                if (bank.get(ixUser).setName.equals(bank.get(accNum).userNameToTransfer))
-                                                {
-                                                    accUserNum = ixUser;
-                                                }
-                                            }
-                                            if (accUserNum != -1)
-                                            {
-
-                                                bank.get(accUserNum).balance += bank.get(accNum).transferAmount;
-
-
-                                                LocalDateTime dateTime1 = LocalDateTime.now();
-
-                                                bank.get(accUserNum).DepositHistory.add(bank.get(accNum).transferAmount);
-                                                bank.get(accUserNum).DateDepositHistory.add(dateTime1);
-
-                                                bank.get(accNum).transferAction = false;
-                                            }
-                                        }
-                                    }
+                                    bank.get(accNumBasic).ListShuffelPlusTransferToOtherPerson(bank, nameCheck, accNum);
                                 }
                                 break;
 
                                 case 6:
                                 {
+                                    int accNumBasic = 0;
                                     int accNum = -1;
-                                    for (ix = 0; ix < bank.size(); ix++)
-                                    {
-                                        if (bank.get(ix).setName.equals(nameCheck))
-                                        {
-                                            accNum = ix;
-                                        }
-                                    }
-                                    if (accNum != -1)
-                                    {
-                                        bank.get(accNum).credit();
-                                    }
-                                    break;
-                                }
-
-                                case 7:
-                                {
-                                    int accNum = -1;
-                                    for (ix = 0; ix < bank.size(); ix++)
-                                    {
-                                        if (bank.get(ix).setName.equals(nameCheck))
-                                        {
-                                            accNum = ix;
-                                        }
-                                    }
-                                    if (accNum != -1)
-                                    {
-                                        bank.get(accNum).creditpayment();
-                                    }
-                                    break;
-                                }
-                                case 8:
-                                {
-                                    int accNum = -1;
-                                    for (ix = 0; ix < bank.size(); ix++)
-                                    {
-                                        if (bank.get(ix).setName.equals(nameCheck))
-                                        {
-                                            accNum = ix;
-                                        }
-                                    }
-                                    if (accNum != -1)
-                                    {
-                                        bank.get(accNum).userIsLogged = false;
-                                    }
-                                    loginMenu = false;
+                                    bank.get(accNumBasic).ListShuffelPlusCreditTake(bank, nameCheck, accNum);
                                 }
                                 break;
+
+                                case 7:
+                                    {
+                                        int accNumBasic = 0;
+                                        int accNum = -1;
+                                        bank.get(accNumBasic).ListShuffelPlusCreditPayment(bank, nameCheck, accNum);
+                                    }
+                                    break;
+
+                                case 8:
+                                    {
+                                        int accNumBasic = 0;
+                                        int accNum = -1;
+                                        bank.get(accNumBasic).ListShuffelPlusLogOut(bank, nameCheck, accNum);
+                                        loginMenu = false;
+                                    }
+                                    break;
                             }
                         } while (loginMenu == true);
                     }
@@ -336,7 +202,7 @@ public class Main {
                 adminMenuquit = true;
                 do
                 {
-                    System.out.println("\nYou are in Admin Menu!\nPress 1. To lock user account\nPress 2. To unlock user accountn\nPress 3. To print all bank accounts\nPress 4. To quit.");
+                    MessagePrinter.AdminMenu();
                     int adminChoose = scannerM9.nextInt();
 
                     switch (adminChoose)
