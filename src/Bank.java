@@ -151,13 +151,16 @@ public class Bank extends account
                     if(userTransferNameCheck == false)
                     {
                         System.out.println("Account with that name don't exist! Enter other account name. ");
+                        return;
                     }
                     else if(bank.get(accNum).setName.equals(bank.get(accNum).userNameToTransfer))
                     {
                         System.out.println("You can't transfer money to Yourself! Enter other account name.");
                         userTransferNameCheck = false;
+                        return;
                     }
                 } while (userTransferNameCheck == false);
+
 
                 bank.get(accNum).transferToOtherUser();
 
@@ -173,7 +176,6 @@ public class Bank extends account
                     }
                     if (accUserNum != -1)
                     {
-
                         bank.get(accUserNum).balance += bank.get(accNum).transferAmount;
 
 

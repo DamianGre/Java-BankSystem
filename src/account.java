@@ -162,7 +162,7 @@ public class account {
 
         public void setRecipientName()
         {
-            System.out.print("\nEnter recipient's name: ");
+            System.out.print("\nEnter recipient's name:");
             this.userNameToTransfer = scanner5.nextLine();
         }
         public void transferToOtherUser()

@@ -93,7 +93,7 @@ public class Main {
                             {
                                 if ((bank.get(ix).setName.equals(nameCheck) ) && (bank.get(ix).setPassword.equals(passwordCheck) ))
                                 {
-                                    System.out.println("\nName: " + bank.get(ix).setName + "\nBalance: \n" + bank.get(ix).balance);
+                                    System.out.println("\nName: " + bank.get(ix).setName + "\nBalance: " + bank.get(ix).balance);
                                 }
                             }
                             MessagePrinter.UserMenu();
